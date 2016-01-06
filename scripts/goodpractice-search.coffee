@@ -35,7 +35,7 @@ gpMe = (res) ->
 		if err?
 			msgData = {
 				channel: res.message.room
-				text: "No Results for \"#{ res.match[1] }\""
+				text: "Error from search for \"#{ res.match[1] }\""
 			}
 			res.robot.adapter.customMessage msgData
 
@@ -56,7 +56,7 @@ gpMe = (res) ->
 			else
 				msgData = {
 					channel: res.message.room
-					text: "No Results for \"#{ res.match[1] }\""
+					text: "No items returned for \"#{ res.match[1] }\""
 				}
 
 			# post the message
@@ -64,7 +64,7 @@ gpMe = (res) ->
 		).catch(() ->
 			msgData = {
 				channel: res.message.room
-				text: "No Results for \"#{ res.match[1] }\""
+				text: "Error when executing promises for \"#{ res.match[1] }\""
 			}
 			res.robot.adapter.customMessage msgData
 		)
