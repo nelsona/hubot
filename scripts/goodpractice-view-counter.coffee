@@ -4,9 +4,11 @@
 # Commands:
 #   gp-count content document name or Id - The name or Id are used to query the log to get a count of the number of views for the piece of content
 
+process.env.DATABASE_NAME ||= 'goodpractice-staging'
+
 Sequelize = require 'sequelize'
-sequelize = new Sequelize('goodpractice-staging', 'gpdb2005user', 'gpdb2005user', {
-  host: '10.10.10.12',
+sequelize = new Sequelize(process.env.DATABASE_NAME, process.env.DATABASE_USER, process.env.DATABASE_PASSWORD, {
+  host: process.env.DATABASE_IP,
   dialect: 'mssql',
 
   pool: {
@@ -23,10 +25,8 @@ module.exports = (robot) ->
 
 gpCount = (res) ->
 	contentDocumentIdentifier = res.match[1]
-	console.log contentDocumentIdentifier
 	sequelize.query('SELECT COUNT(*) as Count FROM LogEntry WHERE ContentId = :contentId AND Action = :action AND ActionDate > (SELECT DateAdd(yy, -1, GetDate()))', { replacements: { contentId: contentDocumentIdentifier, action: 'ViewOnline' },  type: sequelize.QueryTypes.SELECT })
 	.then((results) =>
-		console.log results
 		msgData = {
 			channel: res.message.room
 			text: "#{ res.match[1] } : #{ results[0].Count }"
