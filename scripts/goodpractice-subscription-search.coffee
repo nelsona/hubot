@@ -35,10 +35,12 @@ gpSubscriptionSql = (res, sql) ->
 	identifier = res.match[1]
 	sequelize.query(sql, { replacements: { identifier: identifier },  type: sequelize.QueryTypes.SELECT })
 	.then((results) =>
-		console.log results
 		msgData = {
 			channel: res.message.room
-			text: "#{ res.match[1] } : #{ results[0] }"
+			text: "Results for: #{ res.match[1] }"
+			attachments: []
 		}
+		msgData.attachments.push { fallback: "#{item.Name} - #{item.SubscriptionUrl} - #{item.Id}", title: item.Name, text: "Id: #{ item.Id } Name: #{ item.Name} Url: #{ item.SubscriptionUrl }" } for item in results
+
 		res.robot.adapter.customMessage msgData
 	)
