@@ -40,7 +40,7 @@ gpSubscriptionSql = (res, sql) ->
 			text: "Results for: #{ res.match[1] }"
 			attachments: []
 		}
-		msgData.attachments.push { fallback: "#{item.Name} - #{item.SubscriptionUrl} - #{item.Id}", title: item.Name, text: "Id: #{ item.Id } Name: #{ item.Name} Url: #{ item.SubscriptionUrl }" } for item in results
+		msgData.attachments.push { fallback: "#{item.Name} - #{item.SubscriptionUrl} - #{item.Id}", title: item.Name, text: "Id: #{ item.Id }\n Name: #{ item.Name}\n Url: #{ item.SubscriptionUrl }" } for item in results
 
 		res.robot.adapter.customMessage msgData
 	)
