@@ -109,7 +109,8 @@ getSearchBody = (search) ->
 
 getLinkKey = (res, item) ->
 		deferred = q.defer();
-		res.robot.http("#{process.env.HUBOT_GP_API_URL}/shared-link/generate/hubot/#{process.env.HUBOT_GP_USER_ID}/#{process.env.HUBOT_GP_SUB_URL}/#{item.id}/#{item.type}/14/false/#{process.env.HUBOT_GP_SUB_SSO}/#{process.env.HUBOT_GP_API_KEY}").post() (err, res, body) ->
+		url = "#{process.env.HUBOT_GP_API_URL}/shared-link/generate/hubot/#{process.env.HUBOT_GP_USER_ID}/#{process.env.HUBOT_GP_SUB_URL}/#{item.id}/#{item.type}/14/false/#{process.env.HUBOT_GP_SUB_SSO}/#{process.env.HUBOT_GP_API_KEY}"
+		res.robot.http(url).post() (err, res, body) ->
 				if (err)
 					console.log err
 					deferred.reject()
