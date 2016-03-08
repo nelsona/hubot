@@ -5,10 +5,6 @@
 #   subscription-url returns subscription data for this subscription url
 #   subscription-id returns subscription data for this subscription id
 
-process.env.DATABASE_NAME ||= 'goodpractice-staging'
-process.env.DATABASE_USER ||= 'gpdb2005user'
-process.env.DATABASE_PASSWORD ||= 'gpdb2005user'
-
 Sequelize = require 'sequelize'
 sequelize = new Sequelize(process.env.DATABASE_NAME, process.env.DATABASE_USER, process.env.DATABASE_PASSWORD, {
   host: '10.10.10.12',
