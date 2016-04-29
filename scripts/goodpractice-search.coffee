@@ -10,8 +10,7 @@
 #		HUBOT_GP_API_KEY - API key used to generate the shared links
 #
 # Commands:
-#   gp search terms - the search terms are extracted and a search is performed. The title and summary of the top 3 results
-#		are returned in the message, along with a url to get to the content.
+#   top3 terms - the search terms are extracted and a search is performed. The title and summary of the top 3 results are returned in the message, along with a url to get to the content.
 
 q = require 'q'
 
@@ -24,10 +23,10 @@ process.env.HUBOT_GP_API_URL ||= 'http://localhost:8082'
 process.env.HUBOT_GP_APP_URL ||= 'http://localhost:3000'
 
 module.exports = (robot) ->
-	robot.respond /gp (.*)/i, (res) ->
-		gpMe res
+	robot.respond /top3 (.*)/i, (res) ->
+		search res
 
-gpMe = (res) ->
+search = (res) ->
 	postData = getSearchBody { terms: res.match[1], subscriptionId: process.env.HUBOT_GP_SUB_ID }
 	res.robot.http(process.env.HUBOT_GP_SEARCH_URL + "/content_all/item/_search")
 	.header('accept', 'application/json')
