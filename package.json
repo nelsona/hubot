@@ -20,6 +20,7 @@
     "hubot-scripts": "~2.16.2",
     "hubot-shipit": "~0.2.0",
     "hubot-slack": "~3.3.0",
+    "json2csv": "^3.4.1",
     "q": "^1.4.1",
     "random-id": "0.0.2",
     "sequelize": "^3.19.3",
