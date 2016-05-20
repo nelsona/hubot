@@ -7,7 +7,7 @@
 
 Sequelize = require 'sequelize'
 sequelize = new Sequelize(process.env.DATABASE_NAME, process.env.DATABASE_USER, process.env.DATABASE_PASSWORD, {
-  host: '10.10.10.12',
+  host: process.env.DATABASE_SERVER,
   dialect: 'mssql',
 
   pool: {
@@ -20,11 +20,11 @@ sequelize = new Sequelize(process.env.DATABASE_NAME, process.env.DATABASE_USER, 
 
 module.exports = (robot) ->
 	robot.respond /subscription-url (.*)/i, (res) ->
-		sql = 'SELECT Id, Name, SubscriptionUrl FROM Subscription WHERE SubscriptionUrl = :identifier'
+		sql = 'SELECT Id, Name, SubscriptionUrl, IsResponsive FROM Subscription WHERE SubscriptionUrl = :identifier'
 		gpSubscriptionSql res, sql
 
 	robot.respond /subscription-id (.*)/i, (res) ->
-		sql = 'SELECT Id, Name, SubscriptionUrl FROM Subscription WHERE Id = :identifier'
+		sql = 'SELECT Id, Name, SubscriptionUrl, IsResponsive FROM Subscription WHERE Id = :identifier'
 		gpSubscriptionSql res, sql
 
 gpSubscriptionSql = (res, sql) ->
@@ -36,7 +36,7 @@ gpSubscriptionSql = (res, sql) ->
 			text: "Results for: #{ res.match[1] }"
 			attachments: []
 		}
-		msgData.attachments.push { fallback: "#{item.Name} - #{item.SubscriptionUrl} - #{item.Id}", title: item.Name, text: "Id: #{ item.Id }\n Name: #{ item.Name}\n Url: #{ item.SubscriptionUrl }" } for item in results
+		msgData.attachments.push { fallback: "#{item.Name} - #{item.SubscriptionUrl} - #{item.Id}", title: item.Name, text: "Id: #{ item.Id }\n Name: #{ item.Name}\n Url: #{ item.SubscriptionUrl }\n Responsive: #{item.IsResponsive}" } for item in results
 
 		res.robot.adapter.customMessage msgData
 	)
