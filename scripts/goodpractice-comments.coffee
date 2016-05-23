@@ -2,7 +2,7 @@
 #   A way to get a count of the views of a piece of content from within Slack
 #
 # Commands:
-#   gp-count content document name or Id - The name or Id are used to query the log to get a count of the number of views for the piece of content
+#   gp-comments subscriptionId This command will return the comments for the last calendar month to you in a csv format.
 
 process.env.DATABASE_NAME ||= 'goodpractice-staging'
 
