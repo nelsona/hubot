@@ -31,9 +31,9 @@ module.exports = (robot) ->
 
 setSSOSql = (res, update, select) ->
 	values = res.match[1].split(' ')
-	sequelize.query(update, { replacements: { identifier: values[0], certificate: values[1], url: values[2] },  type: sequelize.QueryTypes.RAW })
+	sequelize.query(update, { replacements: { identifier: values[2], certificate: values[1], url: values[0] },  type: sequelize.QueryTypes.RAW })
 	.then((results) =>
-		return getSSOSql res, values[0], select
+		return getSSOSql res, values[2], select
 	)
 
 getSSOSql = (res, identifier, sql) ->
