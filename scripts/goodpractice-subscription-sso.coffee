@@ -2,8 +2,8 @@
 #   A way to get a count of the views of a piece of content from within Slack
 #
 # Commands:
-#   subscription-sso-get returns subscription SSO data for this subscription url
-#   subscription-sso-set sets the SSO data for this subscription url. Needs to pass in three bits of data, subscriptionUrl, Certificate name and IdP Url. These need to be separated by spaces.
+#   sso-get returns subscription SSO data for this subscription url
+#   sso-set sets the SSO data for this subscription url. Needs to pass in three bits of data, subscriptionUrl, Certificate name and IdP Url. These need to be separated by spaces.
 
 Sequelize = require 'sequelize'
 sequelize = new Sequelize(process.env.DATABASE_NAME, process.env.DATABASE_USER, process.env.DATABASE_PASSWORD, {
