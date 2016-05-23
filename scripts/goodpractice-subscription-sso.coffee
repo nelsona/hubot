@@ -3,11 +3,11 @@
 #
 # Commands:
 #   subscription-sso-get returns subscription SSO data for this subscription url
-#   subscription-sso-set sets the SSO data for this subscription url. Needs to pass in three bits of data, subscriptionUrl, Certificate name and IdP Url
+#   subscription-sso-set sets the SSO data for this subscription url. Needs to pass in three bits of data, subscriptionUrl, Certificate name and IdP Url. These need to be separated by spaces.
 
 Sequelize = require 'sequelize'
 sequelize = new Sequelize(process.env.DATABASE_NAME, process.env.DATABASE_USER, process.env.DATABASE_PASSWORD, {
-  host: '10.10.10.12',
+  host: process.env.DATABASE_SERVER,
   dialect: 'mssql',
 
   pool: {
@@ -41,7 +41,7 @@ getSSOSql = (res, identifier, sql) ->
 	.then((results) =>
 		msgData = {
 			channel: res.message.room
-			text: "Results for: #{ res.match[1] }"
+			text: "Results for: #{ identifier }"
 			attachments: []
 		}
 		msgData.attachments.push { fallback: "#{item.Name} - #{item.SubscriptionUrl}", title: item.Name, text: "Name: #{ item.Name}\n SSOCertificate: #{ item.IdentityProviderCertificateFile }\n SSOUrl: #{ item.IdentityProviderDestinationUrl }" } for item in results
