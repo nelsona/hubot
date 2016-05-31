@@ -24,6 +24,7 @@
     "q": "^1.4.1",
     "random-id": "0.0.2",
     "sequelize": "^3.19.3",
+    "ssh-exec": "^2.0.0",
     "tedious": "^1.13.2",
     "then-mongo": "^2.0.2"
   },
